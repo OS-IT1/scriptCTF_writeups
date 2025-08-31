@@ -5,7 +5,6 @@ import binascii
 import sys
 import string
 
-# --- Put the ciphertext here (hex string as found in the binary) ---
 CIPHERTEXT_HEX = "713d7f2c0f502f485a8af0c284bd3f1e7b03d27204a616a8340beaae23f130edf65401c1f99fe99f63486a385ccea217"
 
 def try_decrypt(ciphertext: bytes, key: bytes, iv: bytes):
