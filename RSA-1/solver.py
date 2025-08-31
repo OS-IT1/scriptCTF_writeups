@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# Broadcast Attack (e=3): CRT + integer cube root
 
 import math
 
