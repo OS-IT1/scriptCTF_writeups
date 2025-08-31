@@ -83,7 +83,7 @@ In this file starting at the offset 0x2090 we have some 32-bit little-endian int
 ```python
 encoded = [32,92,4,104,106,76,96,113,42,65,22,43,203,84,220,98,210,71,29,123,20,125,199,76,230,117,243,84,54,103,197,104,251,83,253,128,159] 
 ```
-The total 37 elements matches the required flag length. During
+The total 37 elements matches the required flag length.
 ## Constraints
 This was know from the format
 
