@@ -48,6 +48,7 @@ This contains XOR operations, Index Based Permutations and comparision against .
 
 The Java side (Main.class) permutes indices and delegates the actual comparison to the native sc(char c, int i).
 
+Similarly we do for Java_xyz_scriptctf_Main_initialize and find that initialize() sets up two integer arrays LL and LLL with inside the Java Side
 
 ## Understanding Java:
 
@@ -57,23 +58,21 @@ idx(i) = (5*i + 3) % 37
 ```
 This gives us the positions from which the flag is being read.
 
-## Java_xyz_scriptctf_Main_sc:
+## Transform:
 
 For each loop index i and character code c = ord(flag\[idx(i)\]), the code finds the following:
 ```python
-base = c + 2*(i % 7) 
-base ^= (44 if (i % 2 == 0) else 19) 
-T(i) = base + (i & 1)
+# if i is even:
+encoded = ((c ^ 0x5A) - (i * 3)) ^ (i + 19)
+
+# if i is odd:
+base = c + (i % 7) * 2
+base ^= 0x13
+base += 1
+encoded = base
 ```
 
-This T(i) is then compared to a pair of integer tables in the native binary.
-
-Following is the inverse used by the solver:
-```python
-x = T(i) - (i & 1) # In the native code, if i (character index) is odd, 1 was added to the computed value before storing it in the table. So here we subtract it back when reversing.
-x ^= (44 if (i % 2 == 0) else 19)  # In the checker, the value was XORed with 44 for even indices and 19 for odd indices.
-c = x - 2*(i % 7) #In the binary, after XOR, they added 2 * (i % 7) to the result before storing it . To reverse it, we subtract this term to recover the original ASCII code.
-```
+After this encoded value is used against arrays LL and LLL.
 ## From .rodata:
 The .rodata file is obtained by running the following command inside the linux64 directory:
 ```shell
@@ -96,7 +95,12 @@ Obviously scriptCTF{ should be at the starting and ending with a }.
 Hence our search becomes limited
 
 ## Our solver (finally!):
-
+For even indices , the transform can be simply reverted by the following: 
+```python
+((encoded ^ 0x5A) - (i * 3)) ^ (i + 19)
+```
+This looks similar to the forward transform because XOR and subtraction are reversible operations, applying the same expression recovers the original character.
+As for odd indices The forward transform involves c + 2*(i%7), then an XOR with 0x13, then a final +1.
 I have included a solver.py file. It reconstructs the flag from the constants above,the transform,and the
 permutation.
 
