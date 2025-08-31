@@ -43,8 +43,6 @@ Once we find m by taking cube root of C . We can use it to recover the flag.
 ## Solver:
 Now that maths is done lets do the boring part.
 ```python
-#!/usr/bin/env python3
-# Broadcast Attack (e=3): CRT + integer cube root
 
 import math
 
