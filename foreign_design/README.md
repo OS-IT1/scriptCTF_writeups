@@ -79,14 +79,11 @@ The .rodata file is obtained by running the following command inside the linux64
 objdump -s -j .rodata libforeign.so > rodata.txt
 ```
 In this file starting at the offset 0x2090 we have some 32-bit little-endian integers (the ones that have a alphabatic character in them) stored in a sequence 
-Integer array is present in the native:
+,Integer array LL and LLL are present and their combined is as follows:
 ```python
-LL = [32,92,4,104,106,76,96,113,42,65,22,43,203,84,220,98,210,71,29,123,20,125,199,76,230,117,243,84,54,103,197,104,251,83,253,128,159] 
+encoded = [32,92,4,104,106,76,96,113,42,65,22,43,203,84,220,98,210,71,29,123,20,125,199,76,230,117,243,84,54,103,197,104,251,83,253,128,159] 
 ```
 The total 37 elements matches the required flag length. During
-checking, sc conceptually consumes from these arrays;our solver infers on the fly which table each T(i) comes
-from.
-
 ## Constraints
 This was know from the format
 
