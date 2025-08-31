@@ -16,11 +16,8 @@ def unscramble2(encoded: int, i: int) -> int:
     """Brute-force ASCII candidates (s2, odd indices)"""
     for c in range(32, 127):  # printable ASCII
         base = c + 2 * (i % 7)
-        if i % 2 == 0:
-            base ^= 0x2C
-        else:
-            base ^= 0x13
-        base += (i & 1)
+        base ^= 0x13
+        base += 1
         if base == encoded:
             return c
     return ord('?')  # should not happen
